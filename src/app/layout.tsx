@@ -1,3 +1,4 @@
+import { NavBar } from '@/components/nav-bar'
 import type { Metadata } from 'next'
 import { Baloo_2, Roboto } from 'next/font/google'
 import './globals.css'
@@ -29,8 +30,9 @@ export default function RootLayout({
       lang="en"
       className={`${roboto.variable} ${baloo2.variable} antialiased`}
     >
-      <body className="bg-background text-base-text">
-        <main className='max-w-[1240px] mx-auto'>{children}</main>
+      <body className="bg-background text-base-text *:select-none">
+        <NavBar />
+        <main>{children}</main>
       </body>
     </html>
   )

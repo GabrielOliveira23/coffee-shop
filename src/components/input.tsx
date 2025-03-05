@@ -1,4 +1,7 @@
-import type { ComponentProps } from 'react'
+'use client'
+
+import { type ComponentProps, useState } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 interface InputRootProps extends ComponentProps<'div'> {
   isOptional?: boolean
@@ -7,11 +10,15 @@ interface InputRootProps extends ComponentProps<'div'> {
 export function InputRoot({
   isOptional = false,
   children,
+  className,
   ...props
 }: InputRootProps) {
   return (
     <div
-      className="p-3 rounded-sm border border-base-button bg-base-input focus-within:border focus-within:border-yellow-dark"
+      className={twMerge(
+        'flex items-center justify-between p-3 rounded-sm border border-base-button bg-base-input focus-within:border focus-within:border-yellow-dark',
+        className
+      )}
       {...props}
     >
       {children}
@@ -26,12 +33,36 @@ export function InputRoot({
 
 type InputFieldProps = ComponentProps<'input'>
 
-export function InputField(props: InputFieldProps) {
+export function InputField({ className, type, ...props }: InputFieldProps) {
+  const [value, setValue] = useState<number>()
+
+  function handleChangeInputNumber(event: React.ChangeEvent<HTMLInputElement>) {
+    const inputValue = event.target.value
+
+    if (inputValue.length <= 4) {
+      setValue(Number(inputValue))
+    }
+  }
+
+  if (type === 'number' && value)
+    return (
+      <input
+        value={value}
+        onChange={handleChangeInputNumber}
+        className={twMerge(
+          'group text-sm flex-1 outline-0 placeholder-text-sm placeholder-base-label',
+          className
+        )}
+        {...props}
+      />
+    )
+
   return (
     <input
-      type="text"
-      className="group text-sm flex-1 outline-0 placeholder-text-sm placeholder-base-label"
-      required={props.required}
+      className={twMerge(
+        'group text-sm flex-1 outline-0 placeholder-text-sm placeholder-base-label',
+        className
+      )}
       {...props}
     />
   )

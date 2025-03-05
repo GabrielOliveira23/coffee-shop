@@ -1,15 +1,8 @@
-import type { LucideProps } from 'lucide-react'
-import type {
-  ComponentProps,
-  ForwardRefExoticComponent,
-  RefAttributes,
-} from 'react'
+import type { ComponentProps, JSX } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 interface IconButtonProps extends ComponentProps<'button'> {
-  Icon: ForwardRefExoticComponent<
-    Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>
-  >
+  Icon: JSX.ElementType
 }
 
 export function IconButton({ Icon, className, ...props }: IconButtonProps) {
@@ -17,12 +10,12 @@ export function IconButton({ Icon, className, ...props }: IconButtonProps) {
     <button
       type="button"
       className={twMerge(
-        'flex items-center justify-center p-2 rounded-md cursor-pointer bg-purple-dark hover:bg-purple',
+        'flex items-center justify-center p-2 rounded-md cursor-pointer bg-purple-dark hover:bg-purple *:text-base-card',
         className
       )}
       {...props}
     >
-      <Icon fill="#f3f2f2" className="text-base-card" size={22} />
+      <Icon width={22} height={22} />
     </button>
   )
 }

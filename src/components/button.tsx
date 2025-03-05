@@ -1,4 +1,4 @@
-import { Trash2 } from 'lucide-react'
+import Trash from '@/assets/trash'
 import type { ComponentProps } from 'react'
 import { twMerge } from 'tailwind-merge'
 
@@ -22,7 +22,7 @@ export function RemoveButton({ className, children, ...props }: ButtonProps) {
     <button
       type="button"
       className={twMerge(
-        'button-md group flex flex-row gap-1 min-h-[32px] items-center justify-center px-2 rounded-md cursor-pointer bg-base-button text-base-text hover:bg-base-hover ',
+        'button-md group flex flex-row gap-1 h-[32px] items-center justify-center px-2 rounded-md cursor-pointer bg-base-button text-base-text hover:bg-base-hover ',
         className
       )}
       {...props}
@@ -31,12 +31,12 @@ export function RemoveButton({ className, children, ...props }: ButtonProps) {
         children
       ) : (
         <>
-          <Trash2
+          <Trash
             className="text-purple group-hover:text-purple-dark"
             width={16}
             height={16}
           />
-          <span>Remover</span>
+          <span>REMOVER</span>
         </>
       )}
     </button>

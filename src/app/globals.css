@@ -26,7 +26,7 @@
   --font-heading: var(--font-baloo-2);
   --font-sans: var(--font-roboto);
 
-  /* --radius-xl: 0.625rem; */
+  --radius-4xl: 2.25rem;
 }
 
 @layer base {
@@ -34,12 +34,32 @@
     @apply font-normal text-base-text;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-heading);
   }
 
-  p, span, label, button, input {
+  p,
+  span,
+  label,
+  button,
+  input {
     font-family: var(--font-sans);
+  }
+}
+
+@layer utilities {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
   }
 
   .title-xl {
@@ -75,13 +95,13 @@
   .text-lg {
     font-size: 20px;
     line-height: 130%;
-    font-weight: 400;
+    /* font-weight: 400; */
   }
 
   .text-md {
     font-size: 16px;
     line-height: 130%;
-    font-weight: 400;
+    /* font-weight: 400; */
   }
 
   .text-sm {
@@ -110,7 +130,7 @@
 
   .button-md {
     font-size: 12px;
-    line-height: 160%;
+    /* line-height: 160%; */
     font-weight: 400;
   }
 }
