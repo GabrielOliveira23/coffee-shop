@@ -9,10 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^1.8.3",
     "next": "15.2.1",
+    "orval": "^7.7.0",
     "postcss": "^8.5.3",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

@@ -25,7 +25,7 @@
         "noSvgWithoutTitle": "off"
       },
       "suspicious": {
-        "noArrayIndexKey": "info"
+        "noArrayIndexKey": "off"
       }
     }
   },
