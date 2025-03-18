@@ -1,7 +1,8 @@
 'use client'
 
 import Cart from '@/assets/cart'
-import Image, { type StaticImageData } from 'next/image'
+import type { Product } from '@/types'
+import Image from 'next/image'
 import { useState } from 'react'
 import { RemoveButton } from './button'
 import { IconButton } from './icon-button'
@@ -9,15 +10,7 @@ import { InputNumber } from './input-number'
 import { Tag } from './tag'
 
 interface ProductCardProps {
-  product: {
-    id: string
-    name: string
-    description: string
-    price: number
-    image: StaticImageData
-    tags: string[]
-    // quantity: number
-  }
+  product: Product
 }
 
 export function ProductCard({ product }: ProductCardProps) {
@@ -35,7 +28,7 @@ export function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="relative flex flex-col w-64 h-[310px] items-center rounded-4xl rounded-tl-md rounded-br-md px-5 pt-[100px] bg-base-card">
       <Image
-        src={product.image}
+        src={`data:image/png;base64,${product.image}`}
         alt={product.name}
         width={120}
         height={120}
@@ -45,7 +38,7 @@ export function ProductCard({ product }: ProductCardProps) {
       <div className="flex gap-1">
         {product.tags.map((tag, idx) => (
           <Tag key={`${tag} ${idx}`} className="mt-3">
-            {tag}
+            {tag.toLocaleUpperCase()}
           </Tag>
         ))}
       </div>
@@ -96,7 +89,7 @@ export function ProductCardCart({ product }: ProductCardProps) {
     <div className="flex items-start justify-between px-1 py-2 w-92 bg-base-card">
       <div className="flex gap-5">
         <Image
-          src={product.image}
+          src={`data:image/png;base64,${product.image}`}
           alt={product.name}
           width={64}
           height={64}

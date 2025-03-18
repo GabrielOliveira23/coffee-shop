@@ -33,6 +33,7 @@ export default function RootLayout({
       <body className="bg-background text-base-text *:select-none">
         <NavBar />
         <main>{children}</main>
+        <footer className="h-[80px]" />
       </body>
     </html>
   )
