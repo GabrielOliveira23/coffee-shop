@@ -6,3 +6,7 @@ export type Product = {
   tags: string[]
   image: string | null
 }
+
+export type ProductCart = Product & {
+  quantity: number
+}

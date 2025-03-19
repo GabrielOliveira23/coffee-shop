@@ -9,7 +9,7 @@ export function Button({ className, ...props }: ButtonProps) {
     <button
       type="button"
       className={twMerge(
-        'button-lg flex w-full min-w-33 max-h-[46px] items-center justify-center py-3 px-2 rounded-md text-base-button bg-yellow hover:bg-yellow-dark cursor-pointer',
+        `button-lg flex w-full min-w-33 max-h-[46px] items-center justify-center py-3 px-2 rounded-md ${props.disabled ? 'bg-base-hover cursor-not-allowed' : 'text-base-button bg-yellow hover:bg-yellow-dark cursor-pointer'} `,
         className
       )}
       {...props}

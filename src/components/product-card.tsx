@@ -1,7 +1,8 @@
 'use client'
 
 import Cart from '@/assets/cart'
-import type { Product } from '@/types'
+import { useCartStore } from '@/store/use-cart-store'
+import type { Product, ProductCart } from '@/types'
 import Image from 'next/image'
 import { useState } from 'react'
 import { RemoveButton } from './button'
@@ -14,6 +15,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const { addToCart } = useCartStore()
   const [quantity, setQuantity] = useState<number>(1)
 
   function handleDecrement() {
@@ -23,6 +25,11 @@ export function ProductCard({ product }: ProductCardProps) {
 
   function handleIncrement() {
     setQuantity(prev => prev + 1)
+  }
+
+  function handleAddProductToCart() {
+    setQuantity(1)
+    addToCart(product, quantity)
   }
 
   return (
@@ -66,23 +73,30 @@ export function ProductCard({ product }: ProductCardProps) {
             handleDecrement={handleDecrement}
             handleIncrement={handleIncrement}
           />
-          <IconButton Icon={Cart} />
+          <IconButton Icon={Cart} onClick={handleAddProductToCart} />
         </div>
       </div>
     </div>
   )
 }
 
-export function ProductCardCart({ product }: ProductCardProps) {
-  const [quantity, setQuantity] = useState<number>(0)
+interface ProductCardCartProps {
+  product: ProductCart
+}
+
+export function ProductCardCart({ product }: ProductCardCartProps) {
+  const { updateQuantity, removeFromCart } = useCartStore()
 
   function handleDecrement() {
-    if (quantity <= 1) return
-    setQuantity(prev => prev - 1)
+    updateQuantity(product.id, -1)
   }
 
   function handleIncrement() {
-    setQuantity(prev => prev + 1)
+    updateQuantity(product.id, 1)
+  }
+
+  function handleDeleteProduct() {
+    removeFromCart(product)
   }
 
   return (
@@ -99,16 +113,16 @@ export function ProductCardCart({ product }: ProductCardProps) {
           <span className="text-md text-base-subtitle">{product.name}</span>
           <div className="flex gap-2">
             <InputNumber
-              value={quantity}
+              value={product.quantity}
               handleDecrement={handleDecrement}
               handleIncrement={handleIncrement}
             />
-            <RemoveButton />
+            <RemoveButton onClick={handleDeleteProduct} />
           </div>
         </div>
       </div>
       <span className="text-md font-bold">
-        {product.price.toLocaleString('pt-br', {
+        {(product.price * product.quantity).toLocaleString('pt-br', {
           style: 'currency',
           currency: 'BRL',
         })}
