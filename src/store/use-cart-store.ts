@@ -7,6 +7,7 @@ interface CartStore {
   addToCart: (item: Product, quantity: number) => void
   removeFromCart: (item: Product) => void
   updateQuantity: (productId: string, quantity: number) => void
+  resetCart: () => void
 }
 
 function isValidProductCart(item: unknown): item is ProductCart {
@@ -70,5 +71,9 @@ export const useCartStore = create<CartStore>(set => ({
 
       return { cart: newCart }
     })
+  },
+  resetCart: () => {
+    sessionStorage.removeItem('cart')
+    set({ cart: [] })
   },
 }))

@@ -1,31 +1,40 @@
-'use client'
-
 import { Button } from '@/components/button'
 import { ProductCardCart } from '@/components/product-card'
 import { useCartStore } from '@/store/use-cart-store'
 import { useEffect } from 'react'
-// import Link from 'next/link'
+import { useFormContext } from 'react-hook-form'
+import type { OrderFormProps } from './order-form.schema'
 
 function formatCurrency(value: number) {
   return value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
 }
 
-export function CartList() {
-  const { cart, getCartStorage } = useCartStore()
-  const cartLength = cart.length
+interface CartListProps {
+  onSubmit: () => void
+}
 
-  const entrega = 4.5
-  const totalItens = cart.reduce(
+export function CartList({ onSubmit }: CartListProps) {
+  const { cart, getCartStorage } = useCartStore()
+  const { setValue } = useFormContext<OrderFormProps>()
+
+  const deliveryFee = 4.5
+  const subtotalAmount = cart.reduce(
     (acc, { price, quantity }) => acc + price * quantity,
     0
   )
-  const totalGeral = totalItens + entrega
+  const total = subtotalAmount + deliveryFee
+  const cartLength = cart.length
 
   useEffect(() => {
     if (cartLength === 0) {
       getCartStorage()
     }
   }, [cartLength, getCartStorage])
+
+  function handleBeforeCheckout() {
+    setValue('value', total)
+    onSubmit()
+  }
 
   return (
     <div className="space-y-4">
@@ -49,23 +58,26 @@ export function CartList() {
         <div className="space-y-3">
           <div className="flex items-center justify-between text-sm">
             <span>Total de itens</span>
-            <span className="text-md">{formatCurrency(totalItens)}</span>
+            <span className="text-md">{formatCurrency(subtotalAmount)}</span>
           </div>
           <div className="flex items-center justify-between text-sm">
             <span>Entrega</span>
-            <span className="text-md">{formatCurrency(entrega)}</span>
+            <span className="text-md">{formatCurrency(deliveryFee)}</span>
           </div>
           <div className="flex items-center justify-between text-lg font-bold mb-6">
             <span>Total</span>
-            <span>{formatCurrency(totalGeral)}</span>
+            <span>{formatCurrency(total)}</span>
           </div>
         </div>
 
-        {/* <Link href="/checkout/success"> */}
-        <Button title="checkout" type="submit" disabled={cart.length === 0}>
+        <Button
+          title="checkout"
+          type="button"
+          onClick={handleBeforeCheckout}
+          disabled={cart.length === 0}
+        >
           CONFIRMAR PEDIDO
         </Button>
-        {/* </Link> */}
       </div>
     </div>
   )

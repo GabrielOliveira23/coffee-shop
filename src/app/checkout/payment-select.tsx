@@ -5,26 +5,36 @@ import Dolar from '@/assets/dolar'
 import Money from '@/assets/money'
 import { Select } from '@/components/select'
 import { useState } from 'react'
+import type { PAYMENT_METHOD } from './order-form.schema'
 
 const paymentMethods = [
   {
     id: 'credit',
     label: 'CARTÃO DE CRÉDITO',
     icon: CreditCart,
+    value: 'CREDIT_CARD',
   },
   {
     id: 'debit',
     label: 'CARTÃO DE DÉBITO',
     icon: CreditCart,
+    value: 'DEBIT_CARD',
   },
   {
     id: 'money',
     label: 'DINHEIRO',
     icon: Money,
+    value: 'MONEY',
   },
-]
+] as const
 
-export default function PaymentSelect() {
+interface PaymentSelectProps {
+  setPaymentMethod: (value: PAYMENT_METHOD) => void
+}
+
+export default function PaymentSelect({
+  setPaymentMethod,
+}: PaymentSelectProps) {
   const [selected, setSelected] = useState<string>()
 
   return (
@@ -44,7 +54,10 @@ export default function PaymentSelect() {
             key={method.id}
             paymentMethod={method}
             selected={selected}
-            onClick={() => setSelected(method.id)}
+            onClick={() => {
+              setSelected(method.id)
+              setPaymentMethod(method.value)
+            }}
           />
         ))}
       </div>
