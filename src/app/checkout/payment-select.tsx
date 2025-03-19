@@ -3,7 +3,7 @@
 import CreditCart from '@/assets/credit-card'
 import Dolar from '@/assets/dolar'
 import Money from '@/assets/money'
-import { Select } from '@/components/select'
+import { Select } from '@/components'
 import { useState } from 'react'
 import type { PAYMENT_METHOD } from './order-form.schema'
 

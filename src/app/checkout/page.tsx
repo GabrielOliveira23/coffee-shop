@@ -1,7 +1,7 @@
 'use client'
 
 import { coffeeShopApi } from '@/http/api'
-import { useCartStore } from '@/store/use-cart-store'
+import { useCartStore } from '@/store'
 import type { Address } from '@/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, useForm } from 'react-hook-form'

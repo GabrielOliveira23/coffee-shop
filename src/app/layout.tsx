@@ -1,4 +1,4 @@
-import { NavBar } from '@/components/nav-bar'
+import { NavBar } from '@/components'
 import type { Metadata } from 'next'
 import { Baloo_2, Roboto } from 'next/font/google'
 import { Toaster } from 'sonner'

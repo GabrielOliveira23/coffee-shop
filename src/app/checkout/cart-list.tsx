@@ -1,6 +1,5 @@
-import { Button } from '@/components/button'
-import { ProductCardCart } from '@/components/product-card'
-import { useCartStore } from '@/store/use-cart-store'
+import { Button, ProductCardCart } from '@/components'
+import { useCartStore } from '@/store'
 import { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import type { OrderFormProps } from './order-form.schema'

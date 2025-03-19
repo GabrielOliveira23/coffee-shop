@@ -1,8 +1,8 @@
 'use client'
 
-import { ProductCard } from '@/components/product-card'
+import { ProductCard } from '@/components'
 import { coffeeShopApi } from '@/http/api'
-import { useProductStore } from '@/store/use-product-store'
+import { useProductStore } from '@/store'
 import { useEffect } from 'react'
 
 const api = coffeeShopApi()

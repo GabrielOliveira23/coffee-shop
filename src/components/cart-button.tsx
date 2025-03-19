@@ -1,7 +1,7 @@
 'use client'
 
 import Cart from '@/assets/cart'
-import { useCartStore } from '@/store/use-cart-store'
+import { useCartStore } from '@/store'
 import { type ComponentProps, useEffect, useState } from 'react'
 
 type CartButtonProps = ComponentProps<'button'>

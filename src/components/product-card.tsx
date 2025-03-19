@@ -1,7 +1,7 @@
 'use client'
 
 import Cart from '@/assets/cart'
-import { useCartStore } from '@/store/use-cart-store'
+import { useCartStore } from '@/store'
 import type { Product, ProductCart } from '@/types'
 import Image from 'next/image'
 import { useState } from 'react'

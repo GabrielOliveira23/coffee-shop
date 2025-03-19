@@ -1,5 +1,5 @@
 import MapPinOutlined from '@/assets/map-pin-outlined'
-import { InputField, InputRoot } from '@/components/input'
+import { InputField, InputRoot } from '@/components'
 import { useFormContext } from 'react-hook-form'
 import type { OrderFormProps } from './order-form.schema'
 
