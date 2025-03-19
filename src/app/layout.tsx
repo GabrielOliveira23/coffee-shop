@@ -1,6 +1,7 @@
 import { NavBar } from '@/components/nav-bar'
 import type { Metadata } from 'next'
 import { Baloo_2, Roboto } from 'next/font/google'
+import { Toaster } from 'sonner'
 import './globals.css'
 
 const roboto = Roboto({
@@ -33,6 +34,7 @@ export default function RootLayout({
       <body className="bg-background text-base-text *:select-none">
         <NavBar />
         <main>{children}</main>
+        <Toaster richColors />
         <footer className="h-[80px]" />
       </body>
     </html>
