@@ -4,6 +4,8 @@ import { coffeeShopApi } from '@/http/api'
 import { useCartStore } from '@/store'
 import type { Address } from '@/types'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import AddressForm from './address-form'
 import { CartList } from './cart-list'
@@ -27,29 +29,50 @@ const addressFake: Address = {
 }
 
 export default function Checkout() {
-  const { resetCart } = useCartStore()
+  const router = useRouter()
+  const { cart, getCartStorage, resetCart } = useCartStore()
+  const cartLength = cart.length
+
+  useEffect(() => {
+    if (cartLength === 0) {
+      getCartStorage()
+    }
+  }, [cartLength, getCartStorage])
+
   const methods = useForm<OrderFormProps>({
     resolver: zodResolver(orderSchema),
     shouldFocusError: true,
     defaultValues: {
       address: addressFake,
+      products: cart.map(product => ({
+        productId: product.id,
+        quantity: product.quantity,
+      })),
     },
   })
 
   async function checkoutOrder(data: OrderFormProps) {
-    console.log('data: ', data)
-
     try {
-      const response = await api.createOrder(data)
+      const parsedData = {
+        ...data,
+        products: cart.map(product => ({
+          ...product,
+          productId: product.id,
+        })),
+      }
 
+      orderSchema.parse(parsedData)
+
+      const response = await api.createOrder(data)
       if (response.status === 201) {
-        console.log(response.data)
+        const createdOrder = response.data.createdOrder
         resetCart()
+        sessionStorage.setItem('createdOrder', JSON.stringify(createdOrder))
+        router.push(`/checkout/${createdOrder.id}`)
       }
     } catch (error) {
       console.error(error)
     }
-    // redirect('/checkout/success')
   }
 
   return (
@@ -65,6 +88,7 @@ export default function Checkout() {
           />
         </div>
         <CartList
+          cart={cart}
           onSubmit={methods.handleSubmit(checkoutOrder, () =>
             console.error('form errors: ', methods.formState.errors)
           )}

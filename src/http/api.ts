@@ -85,6 +85,11 @@ export type AddProductImage400 = {
   message: string
 }
 
+export type CreateOrderBodyProductsItem = {
+  productId: string
+  quantity: number
+}
+
 export type CreateOrderBodyPaymentBy =
   (typeof CreateOrderBodyPaymentBy)[keyof typeof CreateOrderBodyPaymentBy]
 
@@ -112,10 +117,18 @@ export type CreateOrderBodyAddress = {
 }
 
 export type CreateOrderBody = {
+  products: CreateOrderBodyProductsItem[]
   /** @minimum 0 */
   value: number
   paymentBy: CreateOrderBodyPaymentBy
   address: CreateOrderBodyAddress
+}
+
+export type CreateOrder201CreatedOrderProductsItem = {
+  productId: string
+  name: string
+  price: number
+  quantity: number
 }
 
 export type CreateOrder201CreatedOrderPaymentBy =
@@ -142,6 +155,7 @@ export type CreateOrder201CreatedOrderAddress = {
 
 export type CreateOrder201CreatedOrder = {
   id: string
+  products: CreateOrder201CreatedOrderProductsItem[]
   value: number
   paymentBy: CreateOrder201CreatedOrderPaymentBy
   address: CreateOrder201CreatedOrderAddress
@@ -149,6 +163,13 @@ export type CreateOrder201CreatedOrder = {
 
 export type CreateOrder201 = {
   createdOrder: CreateOrder201CreatedOrder
+}
+
+export type GetAllOrders200OrdersItemProductsItem = {
+  productId: string
+  name: string
+  price: number
+  quantity: number
 }
 
 export type GetAllOrders200OrdersItemPaymentBy =
@@ -175,6 +196,7 @@ export type GetAllOrders200OrdersItemAddress = {
 
 export type GetAllOrders200OrdersItem = {
   id: string
+  products: GetAllOrders200OrdersItemProductsItem[]
   value: number
   paymentBy: GetAllOrders200OrdersItemPaymentBy
   address: GetAllOrders200OrdersItemAddress
@@ -182,6 +204,13 @@ export type GetAllOrders200OrdersItem = {
 
 export type GetAllOrders200 = {
   orders: GetAllOrders200OrdersItem[]
+}
+
+export type GetOrderById200OrderProductsItem = {
+  productId: string
+  name: string
+  price: number
+  quantity: number
 }
 
 export type GetOrderById200OrderPaymentBy =
@@ -208,6 +237,7 @@ export type GetOrderById200OrderAddress = {
 
 export type GetOrderById200Order = {
   id: string
+  products: GetOrderById200OrderProductsItem[]
   value: number
   paymentBy: GetOrderById200OrderPaymentBy
   address: GetOrderById200OrderAddress
@@ -223,9 +253,9 @@ export type GetOrderById400 = {
 
 export const coffeeShopApi = () => {
   /**
-
- * @summary Create a new product
- */
+   * Description very cool
+   * @summary Create a new product
+   */
   const createProduct = <TData = AxiosResponse<CreateProduct201>>(
     createProductBody: CreateProductBody,
     options?: AxiosRequestConfig
@@ -238,9 +268,9 @@ export const coffeeShopApi = () => {
   }
 
   /**
-
- * @summary Get all registered products
- */
+   * Description very cool
+   * @summary Get all registered products
+   */
   const getAllProducts = <TData = AxiosResponse<GetAllProducts200>>(
     options?: AxiosRequestConfig
   ): Promise<TData> => {
@@ -248,9 +278,9 @@ export const coffeeShopApi = () => {
   }
 
   /**
-
- * @summary Find a product by Id
- */
+   * Description very cool
+   * @summary Find a product by Id
+   */
   const getProductById = <TData = AxiosResponse<GetProductById200>>(
     productId: string,
     options?: AxiosRequestConfig
@@ -259,9 +289,9 @@ export const coffeeShopApi = () => {
   }
 
   /**
-
- * @summary Add an image to a product
- */
+   * Description very cool
+   * @summary Add an image to a product
+   */
   const addProductImage = <TData = AxiosResponse<AddProductImage200>>(
     productId: string,
     options?: AxiosRequestConfig
@@ -274,9 +304,9 @@ export const coffeeShopApi = () => {
   }
 
   /**
-
- * @summary Create a new order
- */
+   * Description very cool
+   * @summary Create a new order
+   */
   const createOrder = <TData = AxiosResponse<CreateOrder201>>(
     createOrderBody: CreateOrderBody,
     options?: AxiosRequestConfig
@@ -285,9 +315,9 @@ export const coffeeShopApi = () => {
   }
 
   /**
-
- * @summary Find all registered orders
- */
+   * Description very cool
+   * @summary Find all registered orders
+   */
   const getAllOrders = <TData = AxiosResponse<GetAllOrders200>>(
     options?: AxiosRequestConfig
   ): Promise<TData> => {
@@ -295,9 +325,9 @@ export const coffeeShopApi = () => {
   }
 
   /**
-
- * @summary Find an order by Id
- */
+   * Description very cool
+   * @summary Find an order by Id
+   */
   const getOrderById = <TData = AxiosResponse<GetOrderById200>>(
     orderId: string,
     options?: AxiosRequestConfig

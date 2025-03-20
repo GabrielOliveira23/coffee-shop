@@ -1,5 +1,10 @@
 import { z } from 'zod'
 
+export const productsSchema = z.object({
+  productId: z.string().uuid(),
+  quantity: z.number().gt(0, 'Quantity must be positive'),
+})
+
 const addressSchema = z.object({
   cep: z.string().regex(/^\d{5}-\d{3}$/, 'CEP must match it with XXXXX-XXX'),
   street: z.string().min(3, 'Street must have at least 3 characters'),
@@ -13,7 +18,8 @@ const addressSchema = z.object({
 })
 
 export const orderSchema = z.object({
-  value: z.number().gt(0, 'Price must be greater than 0'),
+  products: z.array(productsSchema),
+  value: z.number().gt(0, 'Price must be positive'),
   paymentBy: z.enum(['CREDIT_CARD', 'DEBIT_CARD', 'MONEY']),
   address: addressSchema,
 })

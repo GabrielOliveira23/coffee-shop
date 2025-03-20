@@ -1,10 +1,20 @@
+'use client'
+
 import motoboy from '@/../public/motoboy.png'
 import Dolar from '@/assets/dolar'
 import MapPin from '@/assets/map-pin'
 import Timer from '@/assets/timer'
+import { type Order, PaymentMethod } from '@/types'
 import Image from 'next/image'
+import { redirect } from 'next/navigation'
 
 export default function CheckoutSuccess() {
+  const storedOrder = sessionStorage.getItem('createdOrder')
+
+  if (!storedOrder) redirect('/')
+
+  const { address, value, paymentBy } = JSON.parse(storedOrder) as Order
+
   return (
     <div className="flex flex-col gap-10 max-w-[1120px] mx-auto mt-20">
       <section className="">
@@ -24,10 +34,12 @@ export default function CheckoutSuccess() {
                 <span>
                   Entrega em{' '}
                   <span className="font-bold">
-                    Rua João Daniel Martinelli, 102{' '}
+                    {address.street}, {address.number}
                   </span>
                 </span>
-                <span>Farrapos - Porto Alegre, RS</span>
+                <span>
+                  {address.neighborhood} - {address.city}, {address.uf}
+                </span>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -36,7 +48,7 @@ export default function CheckoutSuccess() {
               </div>
               <div className="flex flex-col">
                 <span className="text-md">Previsão de entrega</span>
-                <span className="text-md font-bold">20 min - 30 min </span>
+                <span className="text-md font-bold">10 min - 20 min </span>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -45,7 +57,13 @@ export default function CheckoutSuccess() {
               </div>
               <div className="flex flex-col">
                 <span className="text-md">Pagamento na entrega</span>
-                <span className="text-md font-bold">Cartão de Crédito</span>
+                <span className="text-md font-bold">
+                  {value.toLocaleString('pt-br', {
+                    style: 'currency',
+                    currency: 'brl',
+                  })} -{' '}
+                  {PaymentMethod[paymentBy]}
+                </span>
               </div>
             </div>
           </div>

@@ -1,6 +1,5 @@
 import { Button, ProductCardCart } from '@/components'
-import { useCartStore } from '@/store'
-import { useEffect } from 'react'
+import type { ProductCart } from '@/types'
 import { useFormContext } from 'react-hook-form'
 import type { OrderFormProps } from './order-form.schema'
 
@@ -9,11 +8,11 @@ function formatCurrency(value: number) {
 }
 
 interface CartListProps {
+  cart: ProductCart[]
   onSubmit: () => void
 }
 
-export function CartList({ onSubmit }: CartListProps) {
-  const { cart, getCartStorage } = useCartStore()
+export function CartList({ cart, onSubmit }: CartListProps) {
   const { setValue } = useFormContext<OrderFormProps>()
 
   const deliveryFee = 4.5
@@ -22,13 +21,6 @@ export function CartList({ onSubmit }: CartListProps) {
     0
   )
   const total = subtotalAmount + deliveryFee
-  const cartLength = cart.length
-
-  useEffect(() => {
-    if (cartLength === 0) {
-      getCartStorage()
-    }
-  }, [cartLength, getCartStorage])
 
   function handleBeforeCheckout() {
     setValue('value', total)

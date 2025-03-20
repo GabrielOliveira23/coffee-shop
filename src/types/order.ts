@@ -1,14 +1,14 @@
 export type Order = {
   id: string
   value: number
-  paymentBy: PaymentMethod
+  paymentBy: keyof typeof PaymentMethod
   address: Address
 }
 
 export enum PaymentMethod {
-  credit = 'CREDIT_CARD',
-  debit = 'DEBIT_CARD',
-  money = 'MONEY',
+  CREDIT_CARD = 'Cartão de credito',
+  DEBIT_CARD = 'Cartão de débito',
+  MONEY = 'Dinheiro',
 }
 
 export type Address = {
