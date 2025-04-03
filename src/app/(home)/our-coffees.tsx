@@ -32,7 +32,7 @@ export default function OurCoffees() {
       <h1 className="title-lg text-base-title mb-[51px]">Nossos cafés</h1>
       {isLoading ? (
         <div>
-          <h1 className="title-md">Ta carregando</h1>
+          <h1 className="title-md">Carregando...</h1>
         </div>
       ) : (
         <div className="flex flex-wrap gap-x-8 gap-y-10">
