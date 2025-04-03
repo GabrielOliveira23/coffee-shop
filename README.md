@@ -7,6 +7,8 @@
 
 The **Coffee Shop** is a coffee delivery e-commerce where users can browse products, add them to the cart, and place orders.
 
+🔗 **Server Repository:** [Coffee Shop Server](https://github.com/GabrielOliveira23/coffee-shop-server)
+
 ## 🛠️ Project Setup
 
 ### ✨ Prerequisites
